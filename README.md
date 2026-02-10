@@ -1,3 +1,3 @@
-# vocal-silence-code-challenge
+# Vocal Silence Code Challenge
 
-Você pode acessar a página online através do link: https://vocal-silence-code-challenge.vercel.app/
+🚀 **Live Demo:** [https://vocal-silence-code-challenge.vercel.app/](https://vocal-silence-code-challenge.vercel.app/)

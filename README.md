@@ -1,3 +1,3 @@
 # Vocal Silence Code Challenge
 
-🚀 **Live Demo:** [https://vocal-silence-code-challenge.vercel.app/](https://vocal-silence-code-challenge.vercel.app/)
+🚀 **Live Demo:** <a href="https://vocal-silence-code-challenge.vercel.app/" target="_blank">https://vocal-silence-code-challenge.vercel.app/</a>

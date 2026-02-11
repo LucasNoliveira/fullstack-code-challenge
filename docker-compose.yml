@@ -5,14 +5,17 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+            python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/app
+      - ./backend:/app
     ports:
       - "8000:8000"
     depends_on:
       - redis
     environment:
+      - DJANGO_SETTINGS_MODULE=api.settings.local
       - CELERY_BROKER_URL=redis://redis:6379/0
 
   celery:
@@ -21,7 +24,7 @@ services:
       dockerfile: Dockerfile
     command: celery -A api worker --loglevel=info
     volumes:
-      - .:/app
+      - ./backend:/app
     depends_on:
       - redis
     environment:

@@ -5,8 +5,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key")
 
-DEBUG = False
-
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
@@ -63,6 +61,7 @@ CELERY_TASK_SERIALIZER = "json"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "no-reply@example.com"
 
+DJANGO_SETTINGS_MODULE=os.getenv("DJANGO_SETTINGS_MODULE", "api.settings.local")
 
 WSGI_APPLICATION = 'api.wsgi.application'
 

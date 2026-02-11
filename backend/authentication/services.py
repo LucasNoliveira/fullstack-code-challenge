@@ -12,6 +12,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import EmailOTP
 
+from .tasks import send_otp_email
+
 User = get_user_model()
 
 class OTPService:
@@ -30,7 +32,9 @@ class OTPService:
 
         cls._create_otp_record(email, otp)
 
-        cls._send_email(email, otp)
+
+        send_otp_email.delay(email, otp)
+
 
     @classmethod
     def _check_rate_limit(cls, email: str):
@@ -56,15 +60,6 @@ class OTPService:
             email=email,
             otp_hash=make_password(otp),
             expires_at=timezone.now() + timedelta(minutes=cls.OTP_EXPIRATION_MINUTES),
-        )
-
-    @staticmethod
-    def _send_email(email, otp):
-        send_mail(
-            subject="Your OTP Code",
-            message=f"Your OTP code is: {otp}",
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[email],
         )
 
     # Verify OTP

@@ -34,11 +34,25 @@ const CompanyTable = ({
                     </thead>
                     <tbody className="divide-y divide-gray-100 text-sm text-gray-700">
                         {loading ? (
-                            <tr>
-                                <td colSpan={5} className="text-center py-12 text-gray-400">
-                                    Loading companies...
-                                </td>
-                            </tr>
+                            Array.from({ length: 5 }).map((_, idx) => (
+                                <tr key={idx} className="animate-pulse">
+                                    <td className="px-8 py-5">
+                                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                                    </td>
+                                    <td className="py-5">
+                                        <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                                    </td>
+                                    <td className="py-5">
+                                        <div className="h-4 bg-gray-200 rounded w-4/6"></div>
+                                    </td>
+                                    <td className="py-5">
+                                        <div className="h-4 bg-gray-200 rounded w-2/6"></div>
+                                    </td>
+                                    <td className="px-8 py-5 text-right">
+                                        <div className="h-4 bg-gray-200 rounded w-4/6 ml-auto"></div>
+                                    </td>
+                                </tr>
+                            ))
                         ) : (
                             companies.map((company) => (
                                 <CompanyRow

@@ -4,6 +4,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+INSTALLED_APPS += [
+    'corsheaders',
+]
+
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+] + MIDDLEWARE
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",

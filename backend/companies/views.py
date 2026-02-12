@@ -2,12 +2,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .pagination import CompanyPagination
+from rest_framework.decorators import action
 
+from .pagination import CompanyPagination
 from .filters import CompanyFilter
 from .models import Company
 from .serializers import CompanySerializer
-from .tasks import send_company_created_email, send_company_updated_email
+from .tasks import send_company_created_email, send_company_updated_email, send_company_status_email
 
 class CompanyViewSet(viewsets.ModelViewSet):
     """
@@ -74,3 +75,24 @@ class CompanyViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    @action(detail=True, methods=["post"], url_path="send-status")
+    def send_status(self, request, pk=None):
+        
+        company = self.get_object()
+
+        try:
+            send_company_status_email.delay(
+                company_name=company.name,
+                company_status=company.status,
+                recipient_email=company.contact_email,
+            )
+            return Response(
+                {"detail": f"Status email queued for {company.contact_email}."},
+                status=status.HTTP_200_OK,
+            )
+        except Exception:
+            return Response(
+                {"detail": "Failed to queue status email. Please try again."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )

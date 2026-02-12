@@ -4,8 +4,18 @@ export interface RequestOtpPayload {
   email: string;
 }
 
+export interface VerifyOtpPayload {
+  email: string;
+  otp: string;
+}
+
 export interface RequestOtpResponse {
   detail: string;
+}
+
+export interface VerifyOtpResponse {
+  access: string;
+  refresh: string;
 }
 
 export interface ApiError {
@@ -44,10 +54,16 @@ async function apiFetch<T>(url: string, options: RequestInit): Promise<T> {
 }
 
 export const authService = {
-  requestOtp: async (
-    payload: RequestOtpPayload,
-  ): Promise<RequestOtpResponse> => {
+  requestOtp: async (payload: RequestOtpPayload): Promise<RequestOtpResponse> => {
     return apiFetch<RequestOtpResponse>(`${API_BASE_URL}/auth/request-otp/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  },
+
+  verifyOtp: async (payload: VerifyOtpPayload): Promise<VerifyOtpResponse> => {
+    return apiFetch<VerifyOtpResponse>(`${API_BASE_URL}/auth/verify-otp/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

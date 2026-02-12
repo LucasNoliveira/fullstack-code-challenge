@@ -2,13 +2,15 @@ import { useState } from "react";
 import EmailForm from "../components/Login/EmailForm";
 import OtpForm from "../components/Login/OtpForm";
 import { useRequestOtp } from "../hooks/useRequestOtp";
+import { useVerifyOtp } from "../hooks/useVerifyOtp";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [otp, setOtp] = useState<string>("");
   const [step, setStep] = useState<"email" | "otp">("email");
 
-  const { isLoading, error, requestOtp } = useRequestOtp();
+  const { isLoading: isRequestingOtp, error: requestError, requestOtp } = useRequestOtp();
+  const { isLoading: isVerifyingOtp, error: verifyError, verifyOtp } = useVerifyOtp();
 
   const handleSendOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,9 +20,9 @@ const LoginPage = () => {
     }
   };
 
-  const handleVerifyOtp = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleVerifyOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({ email, otp });
+    await verifyOtp(email, otp);
   };
 
   const handleChangeEmail = () => {
@@ -63,8 +65,8 @@ const LoginPage = () => {
               email={email}
               setEmail={setEmail}
               onSubmit={handleSendOtp}
-              isLoading={isLoading}
-              error={error}
+              isLoading={isRequestingOtp}
+              error={requestError}
             />
           )}
 
@@ -74,6 +76,8 @@ const LoginPage = () => {
               setOtp={setOtp}
               onSubmit={handleVerifyOtp}
               onChangeEmail={handleChangeEmail}
+              isLoading={isVerifyingOtp}
+              error={verifyError}
             />
           )}
         </div>

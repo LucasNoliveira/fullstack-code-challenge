@@ -6,4 +6,5 @@ export interface Company {
     description: string;
     contact_email: string;
     status: CompanyStatus;
+    created_at: string;
 }

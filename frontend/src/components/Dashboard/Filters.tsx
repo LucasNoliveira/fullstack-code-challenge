@@ -1,12 +1,13 @@
 import SearchInput from "./SearchInput";
 import StatusFilter from "./StatusFilter";
+import type { CompanyStatus } from "../../services/authService";
 
 interface FiltersProps {
-    search: string;
-    setSearch: (value: string) => void;
-    statusFilter: string;
-    setStatusFilter: (value: string) => void;
-    setPage: (page: number) => void;
+  search: string;
+  setSearch: (value: string) => void;
+  statusFilter: CompanyStatus | "all";
+  setStatusFilter: (value: CompanyStatus | "all") => void;
+  setPage: (page: number) => void;
 }
 
 const Filters = ({

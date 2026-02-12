@@ -1,5 +1,3 @@
-version: "3.14"
-
 services:
   web:
     build:
@@ -34,3 +32,12 @@ services:
     image: redis:8
     ports:
       - "6379:6379"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - web

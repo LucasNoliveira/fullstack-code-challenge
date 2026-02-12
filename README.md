@@ -136,6 +136,9 @@ All endpoints are prefixed with `/api/v1/`.
 
 > ⚡ Note: Some design decisions were made considering the short timeframe of the challenge. Certain aspects could be further refined in a longer-term project.
 
+<img width="298" height="298" alt="image" src="https://i.pinimg.com/originals/6e/f4/0d/6ef40de3cfe90a75bc472ab2ca951dfb.gif" />
+
+
 ## Stopping the App
 
 ```bash

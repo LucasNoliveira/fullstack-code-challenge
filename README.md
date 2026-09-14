@@ -1,4 +1,4 @@
-# Vocal Silence — Full-Stack Challenge
+# Full-Stack Challenge
 
 A full-stack web application featuring email-based OTP authentication and a company management dashboard with full CRUD, filtering, and server-side pagination.
 
@@ -55,8 +55,8 @@ A full-stack web application featuring email-based OTP authentication and a comp
 ### 1. Clone the repository
 
 ```bash
-git clone <repo-url>](https://github.com/LucasNoliveira/vocal-silence-code-challenge)
-cd vocal-silence-code-challenge
+git clone <repo-url>](https://github.com/LucasNoliveira/fullstack-code-challenge)
+cd fullstack-code-challenge
 ```
 
 ### 2. Configure environment variables
